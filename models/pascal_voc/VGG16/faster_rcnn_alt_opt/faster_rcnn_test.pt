@@ -21,7 +21,9 @@ layer {
   top: "conv1_1"
   convolution_param {
     num_output: 64
-    pad: 1 kernel_size: 3
+    pad: 1
+    kernel_size: 3
+    engine: CUDNN
   }
 }
 layer {
@@ -406,4 +408,17 @@ layer {
   type: "Softmax"
   bottom: "cls_score"
   top: "cls_prob"
+}
+
+layer {
+  type: 'Python'
+  name: 'inspect'
+  top: 'out'
+  bottom: 'conv1_1'
+  python_param {
+    # the module name -- usually the filename -- that needs to be in $PYTHONPATH
+    module: 'utils.inspect'
+    # the layer name -- the class name in the module
+    layer: 'Inspect'
+  }
 }

@@ -80,6 +80,8 @@ def demo(net, image_name):
     timer = Timer()
     timer.tic()
     scores, boxes = im_detect(net, im)
+    # np.save('{}_scores.npy'.format(os.path.splitext(image_name)[0]), scores)
+    # np.save('{}_bboxes.npy'.format(os.path.splitext(image_name)[0]), boxes)
     timer.toc()
     print ('Detection took {:.3f}s for '
            '{:d} object proposals').format(timer.total_time, boxes.shape[0])
@@ -137,12 +139,16 @@ if __name__ == '__main__':
     print '\n\nLoaded network {:s}'.format(caffemodel)
 
     # Warmup on a dummy image
-    im = 128 * np.ones((300, 500, 3), dtype=np.uint8)
-    for i in xrange(2):
-        _, _= im_detect(net, im)
+    #im = 128 * np.ones((300, 500, 3), dtype=np.uint8)
+    #for i in xrange(2):
+    #    _, _= im_detect(net, im)
 
-    im_names = ['000456.jpg', '000542.jpg', '001150.jpg',
-                '001763.jpg', '004545.jpg']
+    im_names = ['000456.jpg',
+                # '000542.jpg',
+                # '001150.jpg',
+                # '001763.jpg',
+                # '004545.jpg'
+                ]
     for im_name in im_names:
         print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
         print 'Demo for data/demo/{}'.format(im_name)
