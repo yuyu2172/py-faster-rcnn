@@ -1,4 +1,5 @@
 import numpy as np
+import yaml
 import caffe
 
 
@@ -9,8 +10,8 @@ class Inspect(caffe.Layer):
     def setup(self, bottom, top):
         self.count = 0
         # Load layer param
-        # layer_params = yaml.load(self.param_str)
-        pass
+        layer_params = yaml.load(self.param_str_)
+        self._target = layer_params['target']
 
     def reshape(self, bottom, top):
         bottom_shape = [x for x in bottom[0].data.shape]
@@ -21,7 +22,7 @@ class Inspect(caffe.Layer):
         # Activation from the bottom layers
         bottom_data = bottom[0].data
 
-        np.save('a.npy', bottom_data)
+        np.save(self._target, bottom_data)
 
         print bottom_data.shape
 

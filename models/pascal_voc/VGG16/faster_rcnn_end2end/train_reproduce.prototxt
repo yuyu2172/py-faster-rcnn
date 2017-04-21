@@ -567,15 +567,6 @@ layer {
   top: "fc6"
 }
 layer {
-  name: "drop6"
-  type: "Dropout"
-  bottom: "fc6"
-  top: "fc6"
-  dropout_param {
-    dropout_ratio: 0.5
-  }
-}
-layer {
   name: "fc7"
   type: "InnerProduct"
   bottom: "fc6"
@@ -595,15 +586,6 @@ layer {
   type: "ReLU"
   bottom: "fc7"
   top: "fc7"
-}
-layer {
-  name: "drop7"
-  type: "Dropout"
-  bottom: "fc7"
-  top: "fc7"
-  dropout_param {
-    dropout_ratio: 0.5
-  }
 }
 layer {
   name: "cls_score"
@@ -672,122 +654,162 @@ layer {
   loss_weight: 1
 }
 
-# layer {
-#   type: 'Python'
-#   name: 'inspect_data'
-#   top: 'out_data'
-#   bottom: 'data'
-#   python_param {
-#     # the module name -- usually the filename -- that needs to be in $PYTHONPATH
-#     module: 'utils.inspect'
-#     # the layer name -- the class name in the module
-#     layer: 'Inspect'
-#     param_str: "'target': '/home/leus/Dropbox/outputs/data.npy'"
-#   }
-# }
-# layer {
-#   name: "silence_data"
-#   type: "Silence"
-#   bottom: "out_data"
-# }
-# 
-# layer {
-#   type: 'Python'
-#   name: 'inspect_gt_boxes'
-#   top: 'out_gt_boxes'
-#   bottom: 'gt_boxes'
-#   python_param {
-#     # the module name -- usually the filename -- that needs to be in $PYTHONPATH
-#     module: 'utils.inspect'
-#     # the layer name -- the class name in the module
-#     layer: 'Inspect'
-#     param_str: "'target': '/home/leus/Dropbox/outputs/gt_boxes.npy'"
-#   }
-# }
-# layer {
-#   name: "silence_gt_boxes"
-#   type: "Silence"
-#   bottom: "out_gt_boxes"
-# }
-# 
-# layer {
-#   type: 'Python'
-#   name: 'inspect_im_info'
-#   top: 'out_im_info'
-#   bottom: 'im_info'
-#   python_param {
-#     # the module name -- usually the filename -- that needs to be in $PYTHONPATH
-#     module: 'utils.inspect'
-#     # the layer name -- the class name in the module
-#     layer: 'Inspect'
-#     param_str: "'target': '/home/leus/Dropbox/outputs/im_info.npy'"
-#   }
-# }
-# layer {
-#   name: "gt_im_info"
-#   type: "Silence"
-#   bottom: "out_im_info"
-# }
-# 
-# ##############################################################################
-# # LOSSES
-# ##############################################################################
-# layer {
-#   type: 'Python'
-#   name: 'inspect_rpn_loss_bbox'
-#   top: 'out_rpn_loss_bbox'
-#   bottom: 'rpn_loss_bbox'
-#   python_param {
-#     # the module name -- usually the filename -- that needs to be in $PYTHONPATH
-#     module: 'utils.inspect'
-#     # the layer name -- the class name in the module
-#     layer: 'Inspect'
-#     param_str: "'target': '/home/leus/Dropbox/outputs/rpn_loss_bbox.npy'"
-#   }
-# }
-# layer {
-#   name: "silence_loss_bbox"
-#   type: "Silence"
-#   bottom: "out_rpn_loss_bbox"
-# }
-# layer {
-#   type: 'Python'
-#   name: 'inspect_rpn_loss_cls'
-#   top: 'out_rpn_loss_cls'
-#   bottom: 'rpn_cls_loss'
-#   python_param {
-#     # the module name -- usually the filename -- that needs to be in $PYTHONPATH
-#     module: 'utils.inspect'
-#     # the layer name -- the class name in the module
-#     layer: 'Inspect'
-#     param_str: "'target': '/home/leus/Dropbox/outputs/rpn_loss_cls.npy'"
-#   }
-# }
-# layer {
-#   name: "silence_loss_cls"
-#   type: "Silence"
-#   bottom: "out_rpn_loss_cls"
-# }
-# layer {
-#   type: 'Python'
-#   name: 'inspect_pool5'
-#   top: 'out_pool5'
-#   bottom: 'pool5'
-#   python_param {
-#     # the module name -- usually the filename -- that needs to be in $PYTHONPATH
-#     module: 'utils.inspect'
-#     # the layer name -- the class name in the module
-#     layer: 'Inspect'
-#     param_str: "'target': '/home/leus/Dropbox/outputs/pool5.npy'"
-#   }
-# }
-# layer {
-#   name: "silence_pool5"
-#   type: "Silence"
-#   bottom: "out_pool5"
-# }
 
 
+
+
+#
+layer {
+  type: 'Python'
+  name: 'inspect_data'
+  top: 'out_data'
+  bottom: 'data'
+  python_param {
+    # the module name -- usually the filename -- that needs to be in $PYTHONPATH
+    module: 'utils.inspect'
+    # the layer name -- the class name in the module
+    layer: 'Inspect'
+    param_str: "'target': '/home/leus/Dropbox/outputs/data.npy'"
+  }
+}
+layer {
+  name: "silence_data"
+  type: "Silence"
+  bottom: "out_data"
+}
+
+layer {
+  type: 'Python'
+  name: 'inspect_gt_boxes'
+  top: 'out_gt_boxes'
+  bottom: 'gt_boxes'
+  python_param {
+    # the module name -- usually the filename -- that needs to be in $PYTHONPATH
+    module: 'utils.inspect'
+    # the layer name -- the class name in the module
+    layer: 'Inspect'
+    param_str: "'target': '/home/leus/Dropbox/outputs/gt_boxes.npy'"
+  }
+}
+layer {
+  name: "silence_gt_boxes"
+  type: "Silence"
+  bottom: "out_gt_boxes"
+}
+
+layer {
+  type: 'Python'
+  name: 'inspect_im_info'
+  top: 'out_im_info'
+  bottom: 'im_info'
+  python_param {
+    # the module name -- usually the filename -- that needs to be in $PYTHONPATH
+    module: 'utils.inspect'
+    # the layer name -- the class name in the module
+    layer: 'Inspect'
+    param_str: "'target': '/home/leus/Dropbox/outputs/im_info.npy'"
+  }
+}
+layer {
+  name: "gt_im_info"
+  type: "Silence"
+  bottom: "out_im_info"
+}
+
+##############################################################################
+# LOSSES
+##############################################################################
+layer {
+  type: 'Python'
+  name: 'inspect_rpn_loss_bbox'
+  top: 'out_rpn_loss_bbox'
+  bottom: 'rpn_loss_bbox'
+  python_param {
+    # the module name -- usually the filename -- that needs to be in $PYTHONPATH
+    module: 'utils.inspect'
+    # the layer name -- the class name in the module
+    layer: 'Inspect'
+    param_str: "'target': '/home/leus/Dropbox/outputs/rpn_loss_bbox.npy'"
+  }
+}
+layer {
+  name: "silence_rpn_loss_bbox"
+  type: "Silence"
+  bottom: "out_rpn_loss_bbox"
+}
+layer {
+  type: 'Python'
+  name: 'inspect_rpn_loss_cls'
+  top: 'out_rpn_loss_cls'
+  bottom: 'rpn_cls_loss'
+  python_param {
+    # the module name -- usually the filename -- that needs to be in $PYTHONPATH
+    module: 'utils.inspect'
+    # the layer name -- the class name in the module
+    layer: 'Inspect'
+    param_str: "'target': '/home/leus/Dropbox/outputs/rpn_loss_cls.npy'"
+  }
+}
+layer {
+  name: "silence_rpn_loss_cls"
+  type: "Silence"
+  bottom: "out_rpn_loss_cls"
+}
+layer {
+  type: 'Python'
+  name: 'inspect_loss_bbox'
+  top: 'out_loss_bbox'
+  bottom: 'loss_bbox'
+  python_param {
+    # the module name -- usually the filename -- that needs to be in $PYTHONPATH
+    module: 'utils.inspect'
+    # the layer name -- the class name in the module
+    layer: 'Inspect'
+    param_str: "'target': '/home/leus/Dropbox/outputs/loss_bbox.npy'"
+  }
+}
+layer {
+  name: "silence_loss_bbox"
+  type: "Silence"
+  bottom: "out_loss_bbox"
+}
+layer {
+  type: 'Python'
+  name: 'inspect_loss_cls'
+  top: 'out_loss_cls'
+  bottom: 'loss_cls'
+  python_param {
+    # the module name -- usually the filename -- that needs to be in $PYTHONPATH
+    module: 'utils.inspect'
+    # the layer name -- the class name in the module
+    layer: 'Inspect'
+    param_str: "'target': '/home/leus/Dropbox/outputs/loss_cls.npy'"
+  }
+}
+layer {
+  name: "silence_loss_cls"
+  type: "Silence"
+  bottom: "out_loss_cls"
+}
+
+layer {
+  type: 'Python'
+  name: 'inspect_fc7'
+  top: 'out_fc7'
+  bottom: 'fc7'
+  python_param {
+    # the module name -- usually the filename -- that needs to be in $PYTHONPATH
+    module: 'utils.inspect'
+    # the layer name -- the class name in the module
+    layer: 'Inspect'
+    param_str: "'target': '/home/leus/Dropbox/outputs/fc7.npy'"
+  }
+}
+layer {
+  name: "silence_fc7"
+  type: "Silence"
+  bottom: "out_fc7"
+}
 
 
 
