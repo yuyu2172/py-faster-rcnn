@@ -409,16 +409,3 @@ layer {
   bottom: "cls_score"
   top: "cls_prob"
 }
-
-layer {
-  type: 'Python'
-  name: 'inspect'
-  top: 'out'
-  bottom: 'conv1_1'
-  python_param {
-    # the module name -- usually the filename -- that needs to be in $PYTHONPATH
-    module: 'utils.inspect'
-    # the layer name -- the class name in the module
-    layer: 'Inspect'
-  }
-}

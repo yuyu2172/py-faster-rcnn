@@ -88,6 +88,12 @@ def voc_eval(detpath,
     [use_07_metric]: Whether to use VOC07's 11 point AP computation
         (default False)
     """
+    print 'detpath ', detpath
+    print 'annopath ', annopath
+    print 'imagesetfile ', imagesetfile
+    print 'classname ', classname
+    print 'cachedir ', cachedir
+    print 'ovthresh ', ovthresh
     # assumes detections are in detpath.format(classname)
     # assumes annotations are in annopath.format(imagename)
     # assumes imagesetfile is a text file with each line an image name
